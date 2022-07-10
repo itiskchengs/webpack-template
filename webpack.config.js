@@ -1,11 +1,11 @@
 const path = require('path');
-const HTMLWebpackPlugin = require ("html-webpack-plugin");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const StyleLintPlugin = require("stylelint-webpack-plugin");
 
 module.exports = {
     entry: {
-        bundle: path.resolve(__dirname, "src/index.js"),
+        bundle: path.resolve(__dirname, "src/index.tsx"),
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -13,7 +13,7 @@ module.exports = {
         clean: true,
         assetModuleFilename: "[name][ext]",
     },
-    devtool: "source-map",
+    devtool: "inline-source-map",
     devServer: {
         static: {
             directory: path.resolve(__dirname, "dist"),
@@ -26,6 +26,11 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.tsx?$/,
+                use: "ts-loader",
+                exclude: /node_modules/,
+            },
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
@@ -46,6 +51,9 @@ module.exports = {
                 type: "asset/resource",
             },
         ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
         new HTMLWebpackPlugin({

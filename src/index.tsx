@@ -1,5 +1,6 @@
 import React, { StrictMode } from "react";
 import * as ReactDOMClient from "react-dom/client";
+import * as _ from "lodash";
 import App from "./App";
 import "./style.css";
 
